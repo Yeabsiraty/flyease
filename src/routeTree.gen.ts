@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ReservationRouteImport } from './routes/reservation'
 import { Route as HowWeWorkRouteImport } from './routes/how-we-work'
 import { Route as AirportsRouteImport } from './routes/airports'
 import { Route as AdditionalServicesRouteImport } from './routes/additional-services'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ReservationRoute = ReservationRouteImport.update({
+  id: '/reservation',
+  path: '/reservation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HowWeWorkRoute = HowWeWorkRouteImport.update({
   id: '/how-we-work',
   path: '/how-we-work',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/additional-services': typeof AdditionalServicesRoute
   '/airports': typeof AirportsRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/reservation': typeof ReservationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/additional-services': typeof AdditionalServicesRoute
   '/airports': typeof AirportsRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/reservation': typeof ReservationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,6 +70,7 @@ export interface FileRoutesById {
   '/additional-services': typeof AdditionalServicesRoute
   '/airports': typeof AirportsRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/reservation': typeof ReservationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -71,8 +80,15 @@ export interface FileRouteTypes {
     | '/additional-services'
     | '/airports'
     | '/how-we-work'
+    | '/reservation'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/additional-services' | '/airports' | '/how-we-work'
+  to:
+    | '/'
+    | '/about'
+    | '/additional-services'
+    | '/airports'
+    | '/how-we-work'
+    | '/reservation'
   id:
     | '__root__'
     | '/'
@@ -80,6 +96,7 @@ export interface FileRouteTypes {
     | '/additional-services'
     | '/airports'
     | '/how-we-work'
+    | '/reservation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,10 +105,18 @@ export interface RootRouteChildren {
   AdditionalServicesRoute: typeof AdditionalServicesRoute
   AirportsRoute: typeof AirportsRoute
   HowWeWorkRoute: typeof HowWeWorkRoute
+  ReservationRoute: typeof ReservationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reservation': {
+      id: '/reservation'
+      path: '/reservation'
+      fullPath: '/reservation'
+      preLoaderRoute: typeof ReservationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/how-we-work': {
       id: '/how-we-work'
       path: '/how-we-work'
@@ -136,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdditionalServicesRoute: AdditionalServicesRoute,
   AirportsRoute: AirportsRoute,
   HowWeWorkRoute: HowWeWorkRoute,
+  ReservationRoute: ReservationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
