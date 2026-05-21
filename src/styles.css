@@ -124,14 +124,15 @@
   border: 1px solid var(--border);
 }
 
-/* Plane animation */
+/* Plane animation — flies right-to-left, plane faces left (scaleX -1) */
 @keyframes fly-across {
-  0%   { transform: translateX(-30vw) translateY(0) rotate(-3deg); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateX(130vw) translateY(-40px) rotate(-3deg); opacity: 0; }
+  0%   { transform: translateX(110vw) scaleX(-1) rotate(3deg); }
+  100% { transform: translateX(-40vw) scaleX(-1) rotate(3deg); }
 }
-.animate-fly { animation: fly-across 22s linear infinite; }
+.animate-fly {
+  animation: fly-across 14s linear infinite;
+  will-change: transform;
+}
 
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }

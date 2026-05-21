@@ -74,16 +74,13 @@ function ReservationPage() {
     return lines.join("\n");
   }, [form, country, iata, countryObj, airport]);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!valid) return;
-    window.open(whatsappLink(message), "_blank");
-  };
+  const bookHref = valid ? whatsappLink(message) : undefined;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
       <p className="font-display text-sm uppercase tracking-[0.3em] text-gold">Reservation</p>
       <h1 className="mt-2 font-display text-4xl sm:text-5xl">Complete your <span className="text-gradient-gold">booking.</span></h1>
+
 
       <div className="mt-6 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card/60 px-4 py-3 text-sm">
         <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-gold" />{countryObj?.name}</span>
@@ -91,7 +88,7 @@ function ReservationPage() {
         <span className="inline-flex items-center gap-1.5"><Plane className="h-4 w-4 text-gold" />{airport?.name} ({iata})</span>
       </div>
 
-      <form onSubmit={onSubmit} className="mt-8 grid gap-5 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
+      <form onSubmit={(e) => e.preventDefault()} className="mt-8 grid gap-5 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
         <Field label="Name and surname (will be used for the nameplate)" required>
           <input
             required
@@ -172,13 +169,17 @@ function ReservationPage() {
           />
         </Field>
 
-        <button
-          type="submit"
-          disabled={!valid}
+        <a
+          href={bookHref ?? "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={!valid}
+          onClick={(e) => { if (!valid) e.preventDefault(); }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
         >
           Book <Send className="h-5 w-5" />
-        </button>
+        </a>
+
         <p className="text-center text-xs text-muted-foreground">
           Pressing Book opens WhatsApp with your booking details pre-filled.
         </p>
