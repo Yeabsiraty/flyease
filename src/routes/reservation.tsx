@@ -169,13 +169,17 @@ function ReservationPage() {
           />
         </Field>
 
-        <button
-          type="submit"
-          disabled={!valid}
+        <a
+          href={bookHref ?? "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={!valid}
+          onClick={(e) => { if (!valid) e.preventDefault(); }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
         >
           Book <Send className="h-5 w-5" />
-        </button>
+        </a>
+
         <p className="text-center text-xs text-muted-foreground">
           Pressing Book opens WhatsApp with your booking details pre-filled.
         </p>
