@@ -124,14 +124,33 @@
   border: 1px solid var(--border);
 }
 
-/* Plane animation — flies right-to-left, plane faces left (scaleX -1) */
+/* Plane animation — flies left-to-right, plane keeps original facing */
 @keyframes fly-across {
-  0%   { transform: translateX(110vw) scaleX(-1) rotate(3deg); }
-  100% { transform: translateX(-40vw) scaleX(-1) rotate(3deg); }
+  0%   { transform: translateX(-22vw) rotate(3deg); }
+  100% { transform: translateX(104vw) rotate(3deg); }
 }
 .animate-fly {
-  animation: fly-across 14s linear infinite;
+  animation: fly-across 12s linear infinite;
   will-change: transform;
+}
+
+@keyframes fuel-trail {
+  0% { opacity: 0; transform: translateX(0) scaleX(0.55); }
+  12% { opacity: 0.9; }
+  100% { opacity: 0; transform: translateX(-54px) scaleX(1.15); }
+}
+
+.plane-fuel-trail {
+  position: absolute;
+  inset: 50% auto auto -1.1rem;
+  height: 0.45rem;
+  width: 3.6rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--gold) 72%, white) 38%, transparent 100%);
+  filter: blur(1px);
+  transform: translateY(-50%);
+  animation: fuel-trail 0.9s ease-out infinite;
+  pointer-events: none;
 }
 
 @keyframes float-y {
