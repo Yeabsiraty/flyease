@@ -88,7 +88,7 @@ function ReservationPage() {
         <span className="inline-flex items-center gap-1.5"><Plane className="h-4 w-4 text-gold" />{airport?.name} ({iata})</span>
       </div>
 
-      <form onSubmit={onSubmit} className="mt-8 grid gap-5 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
+      <form onSubmit={(e) => e.preventDefault()} className="mt-8 grid gap-5 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
         <Field label="Name and surname (will be used for the nameplate)" required>
           <input
             required
