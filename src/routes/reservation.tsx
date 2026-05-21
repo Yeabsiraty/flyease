@@ -74,16 +74,13 @@ function ReservationPage() {
     return lines.join("\n");
   }, [form, country, iata, countryObj, airport]);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!valid) return;
-    window.open(whatsappLink(message), "_blank");
-  };
+  const bookHref = valid ? whatsappLink(message) : undefined;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
       <p className="font-display text-sm uppercase tracking-[0.3em] text-gold">Reservation</p>
       <h1 className="mt-2 font-display text-4xl sm:text-5xl">Complete your <span className="text-gradient-gold">booking.</span></h1>
+
 
       <div className="mt-6 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card/60 px-4 py-3 text-sm">
         <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-gold" />{countryObj?.name}</span>
