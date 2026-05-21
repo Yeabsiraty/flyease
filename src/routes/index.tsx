@@ -48,13 +48,14 @@ function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
         </div>
 
-        {/* Flying plane animation */}
+        {/* Flying plane animation: enters from right, exits left, loops */}
         <img
           src={planeSil}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-24 h-20 w-auto animate-fly opacity-70"
+          className="pointer-events-none absolute left-0 top-24 h-16 w-auto animate-fly opacity-80 sm:h-24"
         />
+
 
         <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-20 sm:px-6 lg:px-8 lg:pb-32 lg:pt-32">
           <div className="max-w-3xl">
