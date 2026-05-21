@@ -1,7 +1,7 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { countries } from "@/data/airports";
-import { whatsappLink } from "@/lib/whatsapp";
+import { openWhatsApp, whatsappLink } from "@/lib/whatsapp";
 import { Plane, MapPin, Send } from "lucide-react";
 
 interface Search { country?: string; iata?: string }
@@ -171,10 +171,17 @@ function ReservationPage() {
 
         <a
           href={bookHref ?? "#"}
-          target="_blank"
           rel="noopener noreferrer"
           aria-disabled={!valid}
-          onClick={(e) => { if (!valid) e.preventDefault(); }}
+          onClick={(e) => {
+            if (!valid) {
+              e.preventDefault();
+              return;
+            }
+
+            e.preventDefault();
+            openWhatsApp(message);
+          }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
         >
           Book <Send className="h-5 w-5" />
