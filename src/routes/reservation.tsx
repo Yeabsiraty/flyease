@@ -1,7 +1,7 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { countries } from "@/data/airports";
-import { openWhatsApp, whatsappLink } from "@/lib/whatsapp";
+import { openWhatsApp } from "@/lib/whatsapp";
 import { Plane, MapPin, Send } from "lucide-react";
 
 interface Search { country?: string; iata?: string }
@@ -73,8 +73,6 @@ function ReservationPage() {
     ];
     return lines.join("\n");
   }, [form, country, iata, countryObj, airport]);
-
-  const bookHref = valid ? whatsappLink(message) : undefined;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
@@ -169,18 +167,18 @@ function ReservationPage() {
           />
         </Field>
 
-        <a
-          href={bookHref ?? "#"}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
           aria-disabled={!valid}
-          onClick={(e) => {
-            if (!valid) e.preventDefault();
+          disabled={!valid}
+          onClick={() => {
+            if (!valid) return;
+            openWhatsApp(message);
           }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
         >
           Book <Send className="h-5 w-5" />
-        </a>
+        </button>
 
         <p className="text-center text-xs text-muted-foreground">
           Pressing Book opens WhatsApp with your booking details pre-filled.

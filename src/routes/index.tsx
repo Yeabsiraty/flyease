@@ -73,7 +73,7 @@ function HomePage() {
               <span className="text-gradient-gold">in every sky.</span>
             </h1>
             <p className="mt-6 max-w-xl animate-fade-up text-base text-muted-foreground sm:text-lg">
-              From the curb to the cabin — door-to-door private aviation concierge in 200+ airports worldwide.
+              From the curb to the cabin — door-to-door private aviation concierge in international airports worldwide.
             </p>
           </div>
 

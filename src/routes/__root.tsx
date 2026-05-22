@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
+import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -107,6 +108,7 @@ function RootComponent() {
       <Layout>
         <Outlet />
       </Layout>
+      <Toaster />
     </QueryClientProvider>
   );
 }
