@@ -1,16 +1,12 @@
-import { openWhatsApp, whatsappLink } from "@/lib/whatsapp";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export function WhatsAppButton() {
   return (
     <a
       href={whatsappLink("Hello Freedom, I'd like more information.")}
       target="_blank"
-      rel="noreferrer"
+      rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      onClick={(e) => {
-        e.preventDefault();
-        openWhatsApp("Hello Freedom, I'd like more information.");
-      }}
       className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full shadow-2xl transition hover:scale-110"
       style={{ background: "#25D366" }}
     >
