@@ -49,14 +49,17 @@ function HomePage() {
         </div>
 
         {/* Flying plane animation: enters from left, exits right, loops */}
-        <div className="pointer-events-none absolute left-0 top-24 opacity-80">
-          <span className="plane-fuel-trail" aria-hidden="true" />
-          <img
-            src={planeSil}
-            alt=""
-            aria-hidden="true"
-            className="h-12 w-auto animate-fly sm:h-16"
-          />
+        <div className="pointer-events-none absolute left-0 top-24 opacity-80 animate-fly">
+          <div className="relative">
+            <span className="plane-fuel-trail" aria-hidden="true" />
+            <img
+              src={planeSil}
+              alt=""
+              aria-hidden="true"
+              className="h-12 w-auto sm:h-16"
+              style={{ transform: "scaleX(-1)" }}
+            />
+          </div>
         </div>
 
 

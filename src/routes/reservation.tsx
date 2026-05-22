@@ -171,16 +171,11 @@ function ReservationPage() {
 
         <a
           href={bookHref ?? "#"}
+          target="_blank"
           rel="noopener noreferrer"
           aria-disabled={!valid}
           onClick={(e) => {
-            if (!valid) {
-              e.preventDefault();
-              return;
-            }
-
-            e.preventDefault();
-            openWhatsApp(message);
+            if (!valid) e.preventDefault();
           }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
         >
