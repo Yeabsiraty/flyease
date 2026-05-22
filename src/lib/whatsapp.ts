@@ -1,4 +1,4 @@
-export const WHATSAPP_NUMBER = "251951156736"; // no plus, no spaces
+export const WHATSAPP_NUMBER = "251951156736";
 export const WHATSAPP_DISPLAY = "+251 95 115 6736";
 
 export function whatsappLink(message?: string) {
@@ -8,5 +8,16 @@ export function whatsappLink(message?: string) {
 
 export function openWhatsApp(message?: string) {
   if (typeof window === "undefined") return;
-  window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
+
+  const url = whatsappLink(message);
+
+  try {
+    if (window.top && window.top !== window) {
+      window.top.location.href = url;
+      return;
+    }
+  } catch {
+  }
+
+  window.location.href = url;
 }

@@ -17,10 +17,10 @@ export function Footer() {
         <div>
           <h4 className="font-display text-lg text-gold">Contact</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /> {WHATSAPP_DISPLAY}</li>
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /> freedom.vip@aviation.com</li>
+            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /><span>{WHATSAPP_DISPLAY}</span></li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /><span>freedom.vip@aviation.com</span></li>
             <li>
-              <a href={whatsappLink("Hello Freedom, I would like to enquire.")} target="_blank" rel="noreferrer"
+              <a href={whatsappLink("Hello Freedom, I would like to enquire.")} target="_top" rel="noreferrer"
                  className="gold-underline">Chat on WhatsApp</a>
             </li>
           </ul>
