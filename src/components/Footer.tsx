@@ -1,5 +1,5 @@
 import { Plane, Mail, Phone } from "lucide-react";
-import { WHATSAPP_DISPLAY, whatsappLink } from "@/lib/whatsapp";
+import { WHATSAPP_DISPLAY, openWhatsApp } from "@/lib/whatsapp";
 
 export function Footer() {
   return (
@@ -20,8 +20,13 @@ export function Footer() {
             <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /><span>{WHATSAPP_DISPLAY}</span></li>
             <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /><span>freedom.vip@aviation.com</span></li>
             <li>
-              <a href={whatsappLink("Hello Freedom, I would like to enquire.")} target="_top" rel="noreferrer"
-                 className="gold-underline">Chat on WhatsApp</a>
+              <button
+                type="button"
+                onClick={() => openWhatsApp("Hello Freedom, I would like to enquire.")}
+                className="gold-underline"
+              >
+                Chat on WhatsApp
+              </button>
             </li>
           </ul>
         </div>
