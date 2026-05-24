@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { countries } from "@/data/airports";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { Plane, MapPin, Send } from "lucide-react";
+import { toast } from "sonner";
 
 interface Search { country?: string; iata?: string }
 
@@ -172,8 +173,13 @@ function ReservationPage() {
           aria-disabled={!valid}
           disabled={!valid}
           onClick={() => {
-            if (!valid) return;
+            if (!valid) {
+              toast.error("Please fill in all required fields");
+              return;
+            }
+
             openWhatsApp(message);
+            toast.success("Opening WhatsApp with your booking details");
           }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
         >
