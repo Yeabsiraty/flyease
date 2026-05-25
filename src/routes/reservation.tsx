@@ -1,9 +1,9 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { countries } from "@/data/airports";
-import { openWhatsApp } from "@/lib/whatsapp";
-import { Plane, MapPin, Send } from "lucide-react";
-import { toast } from "sonner";
+import { WhatsAppBookButton } from "@/components/whatsapp";
+import { Plane, MapPin } from "lucide-react";
+
 
 interface Search { country?: string; iata?: string }
 
@@ -50,30 +50,8 @@ function ReservationPage() {
   const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) =>
     setForm((p) => ({ ...p, [k]: v }));
 
-  const valid = form.name.trim() && form.service && form.serviceType && form.phone.trim();
+  const valid = Boolean(form.name.trim() && form.service && form.serviceType && form.phone.trim());
 
-  const message = useMemo(() => {
-    const lines = [
-      "*New VIP Booking — Freedom Aviation*",
-      "",
-      `*Country:* ${countryObj?.name ?? country}`,
-      `*Airport:* ${airport?.name ?? ""} (${iata})`,
-      "",
-      `*Name & Surname:* ${form.name}`,
-      `*Flight Number:* ${form.flightNumber || "—"}`,
-      `*Date:* ${form.date || "—"}`,
-      `*Service:* ${form.service}`,
-      `*Type of Service:* ${form.serviceType}`,
-      `*Adults:* ${form.adults}`,
-      `*Children under 12:* ${form.children12}`,
-      `*Children under 2:* ${form.children2}`,
-      `*Checked-in baggage:* ${form.baggage}`,
-      `*Email:* ${form.email || "—"}`,
-      `*Telephone:* ${form.phone}`,
-      `*Comment:* ${form.comment || "—"}`,
-    ];
-    return lines.join("\n");
-  }, [form, country, iata, countryObj, airport]);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
@@ -168,23 +146,17 @@ function ReservationPage() {
           />
         </Field>
 
-        <button
-          type="button"
-          aria-disabled={!valid}
-          disabled={!valid}
-          onClick={() => {
-            if (!valid) {
-              toast.error("Please fill in all required fields");
-              return;
-            }
-
-            openWhatsApp(message);
-            toast.success("Opening WhatsApp with your booking details");
+        <WhatsAppBookButton
+          booking={{
+            countryName: countryObj?.name ?? country,
+            airportName: airport?.name ?? "",
+            iata,
+            valid,
+            form,
           }}
-          className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
-        >
-          Book <Send className="h-5 w-5" />
-        </button>
+          className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+        />
+
 
         <p className="text-center text-xs text-muted-foreground">
           Pressing Book opens WhatsApp with your booking details pre-filled.

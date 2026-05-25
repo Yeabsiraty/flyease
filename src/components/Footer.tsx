@@ -1,5 +1,7 @@
 import { Plane, Mail, Phone } from "lucide-react";
-import { WHATSAPP_DISPLAY, openWhatsApp } from "@/lib/whatsapp";
+import { openWhatsApp, WHATSAPP_NUMBER } from "@/components/whatsapp";
+
+const WHATSAPP_DISPLAY = `+${WHATSAPP_NUMBER.slice(0, 3)} ${WHATSAPP_NUMBER.slice(3, 5)} ${WHATSAPP_NUMBER.slice(5, 8)} ${WHATSAPP_NUMBER.slice(8)}`;
 
 export function Footer() {
   return (
