@@ -1,1 +1,1 @@
-export { WhatsAppFab as WhatsAppButton } from "./whatsapp.jsx";
+export { WhatsAppFab as WhatsAppButton } from "./whatsapp";
