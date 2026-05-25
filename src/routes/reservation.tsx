@@ -146,23 +146,17 @@ function ReservationPage() {
           />
         </Field>
 
-        <button
-          type="button"
-          aria-disabled={!valid}
-          disabled={!valid}
-          onClick={() => {
-            if (!valid) {
-              toast.error("Please fill in all required fields");
-              return;
-            }
-
-            openWhatsApp(message);
-            toast.success("Opening WhatsApp with your booking details");
+        <WhatsAppBookButton
+          booking={{
+            countryName: countryObj?.name ?? country,
+            airportName: airport?.name ?? "",
+            iata,
+            valid,
+            form,
           }}
-          className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold"
-        >
-          Book <Send className="h-5 w-5" />
-        </button>
+          className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+        />
+
 
         <p className="text-center text-xs text-muted-foreground">
           Pressing Book opens WhatsApp with your booking details pre-filled.
