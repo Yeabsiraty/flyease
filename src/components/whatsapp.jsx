@@ -1,18 +1,9 @@
 // ============================================================
 // whatsapp.jsx — all WhatsApp logic + UI lives here
-// ------------------------------------------------------------
-// - WHATSAPP_NUMBER : the destination number (country code, no +)
-// - WhatsAppIcon    : reusable inline SVG icon
-// - openWhatsApp()  : safely opens wa.me with optional pre-filled text
-// - buildBookingMessage() : formats reservation form data into a message
-// - WhatsAppFab     : floating round button shown on every page
-// - WhatsAppBookButton : Book button used in the reservation form
 // ============================================================
 
-import { toast } from "sonner";
-
-// Country code + number, no "+" / spaces / dashes
 export const WHATSAPP_NUMBER = "251951156736";
+export const BOOKING_SUCCESS_FLAG = "freedom-booking-success";
 
 // --- Icon ---------------------------------------------------
 export function WhatsAppIcon({ className = "h-7 w-7 fill-white" }) {
@@ -29,27 +20,10 @@ export function whatsappLink(message) {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
-// Securely open WhatsApp. Falls back to top-level navigation when the
-// preview iframe blocks window.open (some browsers block wa.me popups
-// inside sandboxed iframes — navigating the top window bypasses that).
+// Open WhatsApp in a NEW tab. Never hijack the current page.
 export function openWhatsApp(message) {
   if (typeof window === "undefined") return;
-  const url = whatsappLink(message);
-  try {
-    const w = window.open(url, "_blank", "noopener,noreferrer");
-    if (w) {
-      w.opener = null;
-      return;
-    }
-  } catch (_) {
-    // ignore and fall through
-  }
-  try {
-    if (window.top) window.top.location.href = url;
-    else window.location.href = url;
-  } catch (_) {
-    window.location.href = url;
-  }
+  window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
 }
 
 // --- Booking message builder --------------------------------
@@ -75,7 +49,7 @@ export function buildBookingMessage({ countryName, airportName, iata, form }) {
   ].join("\n");
 }
 
-// --- Floating FAB (shown on every page via Layout) ----------
+// --- Floating FAB (plain anchor — opens in new tab) ---------
 export function WhatsAppFab() {
   return (
     <a
@@ -84,11 +58,6 @@ export function WhatsAppFab() {
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
       title="Chat on WhatsApp"
-      onClick={(e) => {
-        // Use the safe opener so iframe sandboxes don't block it.
-        e.preventDefault();
-        openWhatsApp();
-      }}
       className="whatsapp-fab fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full shadow-2xl transition hover:scale-110"
       style={{ background: "#25D366" }}
     >
@@ -98,16 +67,13 @@ export function WhatsAppFab() {
 }
 
 // --- Book button used by the reservation form ---------------
-// Props: booking = { countryName, airportName, iata, form, valid }
-export function WhatsAppBookButton({ booking, className = "" }) {
+// Props: booking = { countryName, airportName, iata, form, valid }, onSuccess()
+export function WhatsAppBookButton({ booking, onSuccess, className = "" }) {
   const handleClick = () => {
-    if (!booking?.valid) {
-      toast.error("Please fill in all required fields");
-      return;
-    }
+    if (!booking?.valid) return;
     const message = buildBookingMessage(booking);
     openWhatsApp(message);
-    toast.success("Opening WhatsApp with your booking details");
+    onSuccess?.();
   };
 
   return (
