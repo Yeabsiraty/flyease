@@ -1,7 +1,7 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { countries } from "@/data/airports";
-import { WhatsAppBookButton } from "@/components/whatsapp";
+import { WhatsAppBookButton, BOOKING_SUCCESS_FLAG } from "@/components/whatsapp";
 import { Plane, MapPin } from "lucide-react";
 
 
@@ -26,6 +26,7 @@ const TYPE_OPTIONS = ["Departure service", "Arrival service", "Transit service"]
 
 function ReservationPage() {
   const { country, iata } = Route.useSearch();
+  const navigate = useNavigate();
 
   if (!country || !iata) return <Navigate to="/" />;
 
@@ -153,6 +154,13 @@ function ReservationPage() {
             iata,
             valid,
             form,
+          }}
+          onSuccess={() => {
+            if (typeof window !== "undefined") {
+              sessionStorage.setItem(BOOKING_SUCCESS_FLAG, "1");
+              window.dispatchEvent(new Event("booking-success"));
+            }
+            navigate({ to: "/" });
           }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold disabled:cursor-not-allowed disabled:opacity-60"
         />
