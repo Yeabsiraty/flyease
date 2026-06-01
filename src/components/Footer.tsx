@@ -10,7 +10,7 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-2 font-display text-2xl">
             <Plane className="h-6 w-6 text-gold" />
-            <span className="text-gradient-gold">Freedom</span>
+            <span className="text-gradient-gold">Flyease</span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
             VIP airport assistance, meet &amp; assist and full concierge in airports worldwide.
@@ -20,11 +20,11 @@ export function Footer() {
           <h4 className="font-display text-lg text-gold">Contact</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /><span>{WHATSAPP_DISPLAY}</span></li>
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /><span>freedom.vip@aviation.com</span></li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /><span>Flyease.vip@aviation.com</span></li>
             <li>
               <button
                 type="button"
-                onClick={() => openWhatsApp("Hello Freedom, I would like to enquire.")}
+                onClick={() => openWhatsApp("Hello Flyease, I would like to enquire.")}
                 className="gold-underline"
               >
                 Chat on WhatsApp
@@ -43,7 +43,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border/60 py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Freedom Aviation Services. All rights reserved.
+        © {new Date().getFullYear()} Flyease Aviation Services. All rights reserved.
       </div>
     </footer>
   );

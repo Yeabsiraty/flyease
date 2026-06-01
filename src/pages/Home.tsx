@@ -40,7 +40,7 @@ export default function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-20 sm:px-6 lg:px-8 lg:pb-32 lg:pt-32">
           <div className="max-w-3xl">
-            <p className="animate-fade-up font-display text-sm uppercase tracking-[0.3em] text-gold">Freedom Aviation</p>
+            <p className="animate-fade-up font-display text-sm uppercase tracking-[0.3em] text-gold">Flyease Aviation</p>
             <h1 className="mt-4 animate-fade-up font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">
               <span className="text-foreground">VIP Meet &amp; Assist</span>{" "}
               <span className="text-gradient-gold">in every sky.</span>

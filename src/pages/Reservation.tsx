@@ -24,7 +24,7 @@ export default function ReservationPage() {
     children2: 0,
     baggage: 0,
     email: "",
-    phone: "+251 95 115 6736",
+    phone: "+251 95 624 3288",
     comment: "",
   });
 

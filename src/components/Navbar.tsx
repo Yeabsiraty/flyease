@@ -33,7 +33,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2 font-display text-2xl font-semibold">
           <Plane className="h-6 w-6 text-gold" />
-          <span className="text-gradient-gold">Freedom</span>
+          <span className="text-gradient-gold">Flyease</span>
         </Link>
 
         <div className="hidden items-center gap-7 lg:flex">
@@ -74,7 +74,7 @@ export function Navbar() {
             <div className="flex items-center justify-between border-b border-border/60 p-4">
               <div className="flex items-center gap-2 font-display text-xl">
                 <Plane className="h-5 w-5 text-gold" />
-                <span className="text-gradient-gold">Freedom</span>
+                <span className="text-gradient-gold">Flyease</span>
               </div>
               <button
                 aria-label="Close menu"

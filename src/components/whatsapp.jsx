@@ -2,8 +2,8 @@
 // whatsapp.jsx — all WhatsApp logic + UI lives here
 // ============================================================
 
-export const WHATSAPP_NUMBER = "251951156736";
-export const BOOKING_SUCCESS_FLAG = "freedom-booking-success";
+export const WHATSAPP_NUMBER = "251956243288";
+export const BOOKING_SUCCESS_FLAG = "Flyease-booking-success";
 
 // --- Icon ---------------------------------------------------
 export function WhatsAppIcon({ className = "h-7 w-7 fill-white" }) {
@@ -29,7 +29,7 @@ export function openWhatsApp(message) {
 // --- Booking message builder --------------------------------
 export function buildBookingMessage({ countryName, airportName, iata, form }) {
   return [
-    "*New VIP Booking — Freedom Aviation*",
+    "*New VIP Booking — Flyease Aviation*",
     "",
     `*Country:* ${countryName}`,
     `*Airport:* ${airportName} (${iata})`,
