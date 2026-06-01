@@ -1,5 +1,5 @@
-import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Plane } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -14,12 +14,10 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname } = useLocation();
 
-  // close on route change
   useEffect(() => { setOpen(false); setClosing(false); }, [pathname]);
 
-  // lock scroll while drawer open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -38,7 +36,6 @@ export function Navbar() {
           <span className="text-gradient-gold">Freedom</span>
         </Link>
 
-        {/* Desktop */}
         <div className="hidden items-center gap-7 lg:flex">
           {links.map((l) => (
             <Link
@@ -53,7 +50,6 @@ export function Navbar() {
           <ThemeToggle />
         </div>
 
-        {/* Mobile controls */}
         <div className="flex items-center gap-2 lg:hidden">
           <ThemeToggle />
           <button
@@ -66,7 +62,6 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div

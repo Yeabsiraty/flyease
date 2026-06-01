@@ -1,16 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import loungeImg from "@/assets/vip-lounge.jpg";
 import { TOTAL_AIRPORTS, TOTAL_COUNTRIES } from "@/data/airports";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About Us — Freedom VIP Aviation" },
-      { name: "description", content: "20+ years of VIP aviation experience. We organize door-to-door travel for private clients and companies." },
-    ],
-  }),
-  component: About,
-});
 
 export default function About() {
   return (
@@ -27,7 +16,7 @@ export default function About() {
           </div>
         </div>
         <div className="relative">
-          <img src={loungeImg} alt="VIP lounge" width={1600} height={1000} loading="lazy" className="rounded-2xl border border-border object-cover shadow-2xl animate-float" />
+          <img src={loungeImg} alt="VIP lounge" loading="lazy" className="rounded-2xl border border-border object-cover shadow-2xl animate-float" />
           <div className="absolute -bottom-6 -left-6 hidden rounded-xl border border-gold bg-card/90 p-4 backdrop-blur md:block">
             <div className="text-xs uppercase tracking-widest text-muted-foreground">Trusted by guests in</div>
             <div className="font-display text-2xl text-gradient-gold">{TOTAL_COUNTRIES} countries</div>

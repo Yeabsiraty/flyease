@@ -1,17 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Plane } from "lucide-react";
 import { countries } from "@/data/airports";
-
-export const Route = createFileRoute("/airports")({
-  head: () => ({
-    meta: [
-      { title: "Find an Airport — Freedom VIP Aviation" },
-      { name: "description", content: "Search across all international airports we serve. Country is selected automatically." },
-    ],
-  }),
-  component: AirportsPage,
-});
 
 interface FlatAirport {
   iata: string;
@@ -50,7 +40,7 @@ export default function AirportsPage() {
   }, [q]);
 
   const select = (a: FlatAirport) => {
-    navigate({ to: "/reservation", search: { country: a.countryCode, iata: a.iata } });
+    navigate(`/reservation?country=${a.countryCode}&iata=${a.iata}`);
   };
 
   return (

@@ -1,37 +1,17 @@
-import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { countries } from "@/data/airports";
 import { WhatsAppBookButton, BOOKING_SUCCESS_FLAG } from "@/components/whatsapp";
 import { Plane, MapPin } from "lucide-react";
 
-
-interface Search { country?: string; iata?: string }
-
-export const Route = createFileRoute("/reservation")({
-  validateSearch: (s: Record<string, unknown>): Search => ({
-    country: typeof s.country === "string" ? s.country : undefined,
-    iata: typeof s.iata === "string" ? s.iata : undefined,
-  }),
-  head: () => ({
-    meta: [
-      { title: "Reservation — Freedom VIP Aviation" },
-      { name: "description", content: "Complete your VIP airport assistance booking." },
-    ],
-  }),
-  component: ReservationPage,
-});
-
 const SERVICE_OPTIONS = ["Full VIP", "Meet & Assist"];
 const TYPE_OPTIONS = ["Departure service", "Arrival service", "Transit service"];
 
-function ReservationPage() {
-  const { country, iata } = Route.useSearch();
+export default function ReservationPage() {
+  const [params] = useSearchParams();
+  const country = params.get("country") ?? "";
+  const iata = params.get("iata") ?? "";
   const navigate = useNavigate();
-
-  if (!country || !iata) return <Navigate to="/" />;
-
-  const countryObj = countries.find((c) => c.code === country);
-  const airport = countryObj?.airports.find((a) => a.iata === iata);
 
   const [form, setForm] = useState({
     name: "",
@@ -44,21 +24,24 @@ function ReservationPage() {
     children2: 0,
     baggage: 0,
     email: "",
-    phone: "+251 91 123 4567",
+    phone: "+251 95 115 6736",
     comment: "",
   });
+
+  if (!country || !iata) return <Navigate to="/" replace />;
+
+  const countryObj = countries.find((c) => c.code === country);
+  const airport = countryObj?.airports.find((a) => a.iata === iata);
 
   const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) =>
     setForm((p) => ({ ...p, [k]: v }));
 
   const valid = Boolean(form.name.trim() && form.service && form.serviceType && form.phone.trim());
 
-
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
       <p className="font-display text-sm uppercase tracking-[0.3em] text-gold">Reservation</p>
       <h1 className="mt-2 font-display text-4xl sm:text-5xl">Complete your <span className="text-gradient-gold">booking.</span></h1>
-
 
       <div className="mt-6 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card/60 px-4 py-3 text-sm">
         <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-gold" />{countryObj?.name}</span>
@@ -68,31 +51,15 @@ function ReservationPage() {
 
       <form onSubmit={(e) => e.preventDefault()} className="mt-8 grid gap-5 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
         <Field label="Name and surname (will be used for the nameplate)" required>
-          <input
-            required
-            value={form.name}
-            onChange={(e) => set("name", e.target.value)}
-            className={inp}
-            placeholder="John Doe"
-          />
+          <input required value={form.name} onChange={(e) => set("name", e.target.value)} className={inp} placeholder="John Doe" />
         </Field>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Flight Number">
-            <input
-              value={form.flightNumber}
-              onChange={(e) => set("flightNumber", e.target.value)}
-              className={inp}
-              placeholder="ET701"
-            />
+            <input value={form.flightNumber} onChange={(e) => set("flightNumber", e.target.value)} className={inp} placeholder="ET701" />
           </Field>
           <Field label="Date (dd/mm/yyyy)">
-            <input
-              type="date"
-              value={form.date}
-              onChange={(e) => set("date", e.target.value)}
-              className={inp}
-            />
+            <input type="date" value={form.date} onChange={(e) => set("date", e.target.value)} className={inp} />
           </Field>
         </div>
 
@@ -119,32 +86,15 @@ function ReservationPage() {
 
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Email">
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => set("email", e.target.value)}
-              className={inp}
-              placeholder="you@example.com"
-            />
+            <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} className={inp} placeholder="you@example.com" />
           </Field>
           <Field label="Telephone" required>
-            <input
-              required
-              value={form.phone}
-              onChange={(e) => set("phone", e.target.value)}
-              className={inp}
-            />
+            <input required value={form.phone} onChange={(e) => set("phone", e.target.value)} className={inp} />
           </Field>
         </div>
 
         <Field label="Comment">
-          <textarea
-            value={form.comment}
-            onChange={(e) => set("comment", e.target.value)}
-            rows={4}
-            className={inp}
-            placeholder="Any special requests…"
-          />
+          <textarea value={form.comment} onChange={(e) => set("comment", e.target.value)} rows={4} className={inp} placeholder="Any special requests…" />
         </Field>
 
         <WhatsAppBookButton
@@ -156,15 +106,12 @@ function ReservationPage() {
             form,
           }}
           onSuccess={() => {
-            if (typeof window !== "undefined") {
-              sessionStorage.setItem(BOOKING_SUCCESS_FLAG, "1");
-              window.dispatchEvent(new Event("booking-success"));
-            }
-            navigate({ to: "/" });
+            sessionStorage.setItem(BOOKING_SUCCESS_FLAG, "1");
+            window.dispatchEvent(new Event("booking-success"));
+            navigate("/");
           }}
           className="btn-gold mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold disabled:cursor-not-allowed disabled:opacity-60"
         />
-
 
         <p className="text-center text-xs text-muted-foreground">
           Pressing Book opens WhatsApp with your booking details pre-filled.
@@ -174,8 +121,7 @@ function ReservationPage() {
   );
 }
 
-const inp =
-  "w-full rounded-lg border border-border bg-input px-4 py-3 text-foreground outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30";
+const inp = "w-full rounded-lg border border-border bg-input px-4 py-3 text-foreground outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30";
 
 function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
   return (
@@ -192,8 +138,7 @@ function NumberField({ label, value, onChange }: { label: string; value: number;
   return (
     <Field label={label}>
       <div className="flex items-center rounded-lg border border-border bg-input">
-        <button type="button" onClick={() => onChange(Math.max(0, value - 1))}
-          className="h-12 w-12 text-gold transition hover:bg-secondary">−</button>
+        <button type="button" onClick={() => onChange(Math.max(0, value - 1))} className="h-12 w-12 text-gold transition hover:bg-secondary">−</button>
         <input
           type="number"
           min={0}
@@ -201,8 +146,7 @@ function NumberField({ label, value, onChange }: { label: string; value: number;
           onChange={(e) => onChange(Math.max(0, Number(e.target.value) || 0))}
           className="w-full bg-transparent px-2 py-3 text-center text-foreground outline-none"
         />
-        <button type="button" onClick={() => onChange(value + 1)}
-          className="h-12 w-12 text-gold transition hover:bg-secondary">+</button>
+        <button type="button" onClick={() => onChange(value + 1)} className="h-12 w-12 text-gold transition hover:bg-secondary">+</button>
       </div>
     </Field>
   );

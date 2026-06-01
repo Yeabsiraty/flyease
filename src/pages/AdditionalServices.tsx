@@ -1,15 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Sofa, Car, PlaneTakeoff, Truck } from "lucide-react";
-
-export const Route = createFileRoute("/additional-services")({
-  head: () => ({
-    meta: [
-      { title: "Additional Services — Freedom VIP Aviation" },
-      { name: "description", content: "Business lounges, VIP transfers, private flights, porter services and more." },
-    ],
-  }),
-  component: AdditionalServices,
-});
 
 const items = [
   { icon: Sofa, title: "Business Lounges", desc: "Order access to premium business and first-class lounges worldwide." },

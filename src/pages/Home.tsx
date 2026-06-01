@@ -1,22 +1,12 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronRight, MapPin, Plane as PlaneIcon, Sparkles, ShieldCheck, Clock } from "lucide-react";
 import { countries, TOTAL_AIRPORTS, TOTAL_COUNTRIES } from "@/data/airports";
 import heroImg from "@/assets/hero-airbus.jpg";
 import planeSil from "@/assets/plane-silhouette.png";
 import loungeImg from "@/assets/vip-lounge.jpg";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Freedom — VIP Meet & Assist at any airport" },
-      { name: "description", content: "Book VIP airport assistance: arrival, departure and transit services worldwide. Select your country and airport to begin." },
-    ],
-  }),
-  component: HomePage,
-});
-
-function HomePage() {
+export default function HomePage() {
   const navigate = useNavigate();
   const [countryCode, setCountryCode] = useState("");
   const [iata, setIata] = useState("");
@@ -30,44 +20,27 @@ function HomePage() {
 
   const goNext = () => {
     if (!canNext) return;
-    navigate({ to: "/reservation", search: { country: countryCode, iata } });
+    navigate(`/reservation?country=${countryCode}&iata=${iata}`);
   };
 
   return (
     <>
-      {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src={heroImg}
-            alt="Airbus A380 flying through golden clouds"
-            width={1920}
-            height={1280}
-            className="h-full w-full object-cover opacity-60 light:opacity-40"
-          />
+          <img src={heroImg} alt="Airbus A380 flying through golden clouds" className="h-full w-full object-cover opacity-60" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
         </div>
 
-        {/* Flying plane animation: enters from left, exits right, loops */}
         <div className="pointer-events-none absolute left-0 top-24 opacity-80 animate-fly">
           <div className="relative">
             <span className="plane-fuel-trail" aria-hidden="true" />
-            <img
-              src={planeSil}
-              alt=""
-              aria-hidden="true"
-              className="h-12 w-auto sm:h-16"
-              style={{ transform: "scaleX(-1)" }}
-            />
+            <img src={planeSil} alt="" aria-hidden="true" className="h-12 w-auto sm:h-16" style={{ transform: "scaleX(-1)" }} />
           </div>
         </div>
 
-
         <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-20 sm:px-6 lg:px-8 lg:pb-32 lg:pt-32">
           <div className="max-w-3xl">
-            <p className="animate-fade-up font-display text-sm uppercase tracking-[0.3em] text-gold">
-              Freedom Aviation
-            </p>
+            <p className="animate-fade-up font-display text-sm uppercase tracking-[0.3em] text-gold">Freedom Aviation</p>
             <h1 className="mt-4 animate-fade-up font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">
               <span className="text-foreground">VIP Meet &amp; Assist</span>{" "}
               <span className="text-gradient-gold">in every sky.</span>
@@ -77,7 +50,6 @@ function HomePage() {
             </p>
           </div>
 
-          {/* Selector card */}
           <div className="mt-12 max-w-3xl animate-fade-up">
             <div className="glass rounded-2xl p-6 shadow-2xl sm:p-8">
               <h2 className="font-display text-2xl text-gold">Begin your booking</h2>
@@ -94,9 +66,7 @@ function HomePage() {
                     className="w-full rounded-lg border border-border bg-input px-4 py-3 text-foreground outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30"
                   >
                     <option value="">Select country…</option>
-                    {countries.map((c) => (
-                      <option key={c.code} value={c.code}>{c.name}</option>
-                    ))}
+                    {countries.map((c) => (<option key={c.code} value={c.code}>{c.name}</option>))}
                   </select>
                 </label>
 
@@ -110,9 +80,7 @@ function HomePage() {
                     disabled={!countryCode}
                     className="w-full rounded-lg border border-border bg-input px-4 py-3 text-foreground outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30 disabled:opacity-50"
                   >
-                    <option value="">
-                      {countryCode ? "Select airport…" : "Choose country first"}
-                    </option>
+                    <option value="">{countryCode ? "Select airport…" : "Choose country first"}</option>
                     {airports.map((a) => (
                       <option key={a.iata} value={a.iata}>
                         {a.name} ({a.iata}){a.municipality ? ` — ${a.municipality}` : ""}
@@ -134,7 +102,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* STATS */}
       <section className="border-y border-border/60 bg-card/40 backdrop-blur">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6 lg:px-8">
           {[
@@ -150,7 +117,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SERVICES PREVIEW */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="mb-12 max-w-2xl">
           <p className="font-display text-sm uppercase tracking-[0.3em] text-gold">Our services</p>
@@ -173,16 +139,8 @@ function HomePage() {
         </div>
       </section>
 
-      {/* LOUNGE BANNER */}
       <section className="relative overflow-hidden">
-        <img
-          src={loungeImg}
-          alt="Luxury VIP airport lounge"
-          width={1600}
-          height={1000}
-          loading="lazy"
-          className="h-[400px] w-full object-cover opacity-50"
-        />
+        <img src={loungeImg} alt="Luxury VIP airport lounge" loading="lazy" className="h-[400px] w-full object-cover opacity-50" />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -1,15 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Plane, PlaneTakeoff, PlaneLanding, ArrowRightLeft } from "lucide-react";
-
-export const Route = createFileRoute("/how-we-work")({
-  head: () => ({
-    meta: [
-      { title: "How We Work — Freedom VIP Aviation" },
-      { name: "description", content: "Arrival, departure and transit VIP services — what we do step by step." },
-    ],
-  }),
-  component: HowWeWork,
-});
+import { PlaneTakeoff, PlaneLanding, ArrowRightLeft } from "lucide-react";
 
 const services = [
   {
@@ -30,7 +19,7 @@ const services = [
       "You will be met by a dedicated agent upon arrival at the airport. Should you need help with your luggage, porter services will be provided.",
       "The agent will guide you to the correct counter and facilitate your check-in procedures. VAT refund assistance will be also provided if necessary.",
       "You will be expedited through security check and passport control.",
-      "The agent will escort you to the lounge, if you have access to it, or directly to the gate area. You will be then taken to the boarding when the time comes.",
+      "The agent will escort you to the lounge, if you have access to it, or directly to the gate area.",
     ],
   },
   {
@@ -39,8 +28,8 @@ const services = [
     steps: [
       "A dedicated agent will monitor the status of your flight and punctually meet you at the arrival gate with a personalized signage.",
       "If you need to clear passport control, the agent will expedite your passage through it.",
-      "You will be swiftly assisted through luggage retrieval, check-in for your connecting flight and security filter, should your itinerary require you to comply with any of these procedures.",
-      "In case of any unforeseen issue, such as a missed connection or a flight cancellation, the agent will remain at your side and closely assist you with your alternative plans.",
+      "You will be swiftly assisted through luggage retrieval, check-in for your connecting flight and security filter.",
+      "In case of any unforeseen issue, such as a missed connection or a flight cancellation, the agent will remain at your side.",
       "The agent will escort you to the lounge, if you have access to it.",
     ],
   },
