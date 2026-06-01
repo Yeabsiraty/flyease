@@ -43,8 +43,14 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border/60 py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Flyease Aviation Services. All rights reserved.
-      </div>
+  <div>
+      © {new Date().getFullYear()} Flyease Aviation Services. All rights reserved.
+    </div>
+
+    <div className="mt-1 text-[10px] opacity-50">
+      Website created by Yeabsira Tesfaye
+    </div>
+  </div>
     </footer>
   );
 }
