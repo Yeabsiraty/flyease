@@ -50,6 +50,9 @@ export function Footer() {
     <div className="mt-1 text-[10px] opacity-50">
       Website created by Yeabsra Tesfaye
     </div>
+    <div className="mt-1 text-[10px] opacity-50">
+      yeabsiratesfaye4118@gmail.com
+    </div>
   </div>
     </footer>
   );
