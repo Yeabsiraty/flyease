@@ -48,7 +48,7 @@ export function Footer() {
     </div>
 
     <div className="mt-1 text-[10px] opacity-50">
-      Website created by Yeabsira Tesfaye
+      Website created by Yeabsra Tesfaye
     </div>
   </div>
     </footer>
