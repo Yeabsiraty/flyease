@@ -20,7 +20,7 @@ export function Footer() {
           <h4 className="font-display text-lg text-gold">Contact</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /><span>{WHATSAPP_DISPLAY}</span></li>
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /><span>Flyease.vip@aviation.com</span></li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /><span>support@flyeaseaviation.com</span></li>
             <li>
               <button
                 type="button"
@@ -48,10 +48,7 @@ export function Footer() {
     </div>
 
     <div className="mt-1 text-[10px] opacity-50">
-      Website created by Yeabsra Tesfaye
-    </div>
-    <div className="mt-1 text-[10px] opacity-50">
-      yeabsiratesfaye4118@gmail.com
+      designed by Yeabsra Tesfaye
     </div>
   </div>
     </footer>
